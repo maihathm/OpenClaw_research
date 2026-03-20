@@ -2,79 +2,71 @@
 
 ## Objective
 
-Maintain a living, high-signal research archive for one AI domain at a time,
-with a default focus on OpenClaw-adjacent agent tooling and practical field
-notes.
+Maintain a living, high-signal research archive for OpenClaw-adjacent agent tooling.
 
-## Default Cadence
+The daily workflow should emphasize three things:
+- **new repos** worth knowing about
+- **new variants / forks / technical branches** that materially differ
+- **new ways of using tools**: practical workflows, implementation tricks, debugging notes, and deployment patterns
 
-### Midday run — 12:00 Asia/Saigon
+## Daily Cadence
+
+### Midday run — ecosystem radar
 Purpose:
-- catch fresh launches, releases, changelog updates, and high-velocity posts
+- catch fresh launches, releases, repo movement, new variants, and high-velocity implementation posts
 - produce a concise alert-style digest
 
 Suggested scope:
 - last 18 hours
 - 3-6 strongest new items
-- emphasize what changed since the prior run
+- prioritize real newness over completeness
 
-### Night run — 23:00 Asia/Saigon
+### Night run — usage and implication digest
 Purpose:
-- broader end-of-day digest
-- include practical takeaways, implications, and follow-up actions
+- produce a broader end-of-day digest
+- include what changed, why it matters, and how it changes usage or operating practice
 
 Suggested scope:
-- last 12-24 hours, depending on signal density
+- last 12-24 hours depending on signal density
 - 4-8 items max
-- favor completeness over speed, but keep it concise
+- include at least some operator-facing takeaways when available
 
 ## Source Priority
 
 ### Tier 1 — Primary / highest signal
-- official docs
-- GitHub repos
-- release notes
-- changelogs
-- vendor or project engineering blogs
+- official OpenClaw docs and GitHub
+- release notes and changelogs
+- issues / PRs / discussions with behavioral impact
+- official repos for adjacent tools (browser automation, evals, agent runtimes)
 
 ### Tier 2 — High-value secondary
+- company engineering blogs
 - benchmark writeups
-- research papers
-- implementation repos related to the topic
+- implementation repos
 - technical issue threads with concrete evidence
 
-### Tier 3 — Curated practitioner sources
-- strong independent engineering blogs
-- detailed postmortems
-- field notes from reputable builders
+### Tier 3 — Practical field notes
+- practitioner blogs
+- high-quality tutorials
+- migration notes
+- debugging or deployment writeups
 
-### Tier 4 — Social discovery only
-Use only to discover links to stronger sources. Do not treat social summaries as final evidence unless they point to primary materials.
+## What to keep
 
-## Item Selection Rules
-
-Keep an item if it has one or more of:
-- measurable benchmark or result
-- concrete system design or workflow
-- implementation trick or failure mode
-- code or config detail
-- release / version / changelog movement
-- deployment, eval, or security lesson
+Keep an item if it contains one or more of:
+- a genuinely new repo
+- a meaningful new variant or fork
+- a release / changelog / architecture change
+- a practical workflow improvement
+- a reproducible implementation tip
+- a bug or failure mode that changes how operators should use the tool
+- a new docs pattern or tutorial with real tactical value
 
 Reject:
-- generic AI trend summaries
-- recycled launch posts with no new facts
-- listicles with no technical detail
-- vague opinion pieces
-
-## Deduping Rules
-
-Do not repeat yesterday's story unless there is a true update:
-- new version
-- new benchmark
-- new docs or implementation detail
-- new code repo or commit activity
-- new failure mode or correction
+- generic AI news
+- thin summaries of launch posts
+- hype without technical substance
+- unchanged projects being re-mentioned without a new angle
 
 ## Repo Update Rules
 
@@ -93,8 +85,8 @@ Each note should include:
 ## Browser Fallback Policy
 
 Escalate to Selenium or another browser automation method only when:
-- content is hidden behind JS rendering
-- interaction is required to expose meaningful content
-- normal fetch/search misses critical text
+- meaningful content is hidden behind JS rendering
+- interaction is required to expose details
+- normal fetch/search misses the important text
 
-If browser tooling is missing locally, document the limitation and continue the run with accessible sources.
+If browser tooling is missing locally, note the limitation and continue with accessible sources.
