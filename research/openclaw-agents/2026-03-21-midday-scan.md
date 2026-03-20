@@ -1,102 +1,109 @@
 # OpenClaw Agents Midday Scan
 
 ## Scope
-- Domain: OpenClaw ecosystem, AI agents, browser automation, evals, guardrails, and practical implementation tips
-- Intent: domain-update
+- Domain: OpenClaw ecosystem, AI agents, browser automation, repo variants, forks, evals, guardrails, and practical usage patterns
+- Intent: repo-radar / usage-radar
 - Time window: last ~18 hours
-- Research date: 2026-03-21 00:42 Asia/Saigon / 2026-03-20 17:42 UTC
+- Research date: 2026-03-21 01:01 Asia/Saigon / 2026-03-20 18:01 UTC
 - Depth: quick-scan
 
 ## Collection notes
 - `web_search` was unavailable in this environment because the Brave API key is not configured.
-- I continued with direct primary-source fetches from GitHub, official posts, and static page extraction.
+- I continued with direct primary-source checks via GitHub API/release pages and repo metadata.
 - Browser automation fallback was not required for this run.
 
 ## Executive summary
-- `browser-use` merged a major CLI redesign centered on a per-session daemon, a new `browser-use cloud` REST path, auto-discovery via `--connect`, and built-in upload support — a meaningful workflow shift for agentic browser control.
-- `agent-browser` shipped `v0.21.4` with a targeted auth-login readiness fix that should reduce common SPA login failures and `networkidle` stalls.
-- OpenClaw had fresh repo movement around config correctness and Telegram delivery hooks, both directly relevant to agent reliability and integrations.
-- OpenAI announced its planned Astral acquisition; the immediate practical implication is tighter Codex alignment with core Python tooling (`uv`, `ruff`, `ty`).
+- `browser-use` merged a meaningful CLI/ops redesign: per-session daemon, new `browser-use cloud` REST workflow, `--connect` auto-discovery, and built-in `upload` support.
+- `agent-browser` shipped two practical fixes in quick succession: remote-browser keepalive hardening (`v0.21.3`) and a targeted auth-login readiness fix (`v0.21.4`).
+- OpenClaw itself had fresh behavior-impacting movement around Telegram account routing, plugin/docs terminology, and two operator-relevant PRs for skills policy enforcement and sandbox image correctness.
+- I did not find a genuinely new OpenClaw-adjacent repo or meaningful new fork in this window; the signal was mostly release/PR/workflow movement.
 
 ## Key findings
 
-### 1. browser-use merged a large CLI overhaul
+### 1. `browser-use` merged a major CLI workflow change
 - What happened:
   - `browser-use/browser-use` merged PR #4364 (`huge cli update`) at `2026-03-20T17:01:28Z`.
-  - The update rebuilds the CLI around a per-session daemon, adds a stdlib-only `browser-use cloud` REST command, introduces Chrome auto-discovery via `--connect`, adds `upload`, consolidates files under `~/.browser-use`, and removes older cloud/remote command paths.
+  - The change rebuilds the CLI around a per-session daemon, adds a stdlib `browser-use cloud` REST command, introduces Chrome auto-discovery via `--connect`, adds `upload`, consolidates state under `~/.browser-use`, and removes older `run` / remote task flows.
 - Why it matters:
-  - This is more than a feature add; it changes the operational model for agent-driven browser automation.
-  - The daemon/liveness changes and Windows-specific liveness fix are directly relevant for reducing orphaned processes and flaky long-lived sessions.
-  - `upload` is a practical unlock for real-world workflows that need file inputs.
+  - This is a real operator-facing change, not cosmetic churn.
+  - It changes how long-lived browser sessions should be managed and makes file-input workflows more first-class.
+  - Any OpenClaw wrapper/skill that shells out to `browser-use` may need compatibility updates.
 - Evidence:
-  - PR text explicitly calls out daemon simplification, REST-based cloud command, `--connect`, profile resolution changes, and upload support.
+  - PR summary explicitly calls out daemon lifecycle, `cloud` REST command, `--connect`, `upload`, and migration/removal notes.
 - Link:
   - GitHub PR: https://github.com/browser-use/browser-use/pull/4364
 
-### 2. agent-browser v0.21.4 shipped an auth-login readiness fix
+### 2. `agent-browser` shipped two practical browser-control fixes within hours
 - What happened:
-  - `vercel-labs/agent-browser` published `v0.21.4` at `2026-03-20T14:18:41Z`.
-  - Patch notes say auth login now navigates with `load`, waits for usable login form selectors, and uses staged username detection before broad text-input fallback.
+  - `vercel-labs/agent-browser` released `v0.21.3` at `2026-03-20T13:59:38Z` and `v0.21.4` at `2026-03-20T14:18:41Z`.
+  - `v0.21.3` adds WebSocket ping + TCP keepalive for remote browsers and fixes XPath selector handling.
+  - `v0.21.4` changes `auth login` to wait for usable selectors with staged username/email detection, reducing SPA timing failures and `networkidle` hangs.
 - Why it matters:
-  - This directly targets a common browser-agent failure mode: SPA login pages that never hit stable `networkidle`, or pages where naive selector matching grabs the wrong input.
-  - Useful for any OpenClaw/browser skill that needs deterministic auth automation.
+  - These are exactly the kinds of fixes that reduce flaky agent-browser sessions in real automation.
+  - Together they improve two common pain points: idle proxy disconnects and brittle login flows.
 - Evidence:
-  - Release notes describe reduced SPA timing failures, fewer false matches, and avoidance of continuous-background-request hangs.
-- Link:
-  - GitHub release: https://github.com/vercel-labs/agent-browser/releases/tag/v0.21.4
-
-### 3. OpenClaw merged stricter JSON/JSON5 config parsing fixes
-- What happened:
-  - OpenClaw merged PR #51153 at `2026-03-20T17:10:57Z`.
-  - The change tightens JSON vs JSON5 parsing paths: `config set --strict-json` now uses real `JSON.parse`, machine-written stores prefer `JSON.parse` with JSON5 fallback, and raw-config labeling/docs were corrected.
-- Why it matters:
-  - This is a small but important guardrail fix. Config drift between strict JSON and permissive JSON5 is a real source of operator confusion and silent tooling mismatches.
-  - Especially relevant for cron/subagent stores and any automation that writes config programmatically.
-- Evidence:
-  - PR summary states prior behavior drifted across CLI, machine-written stores, and UI/docs, and that the fix narrows the parsing contract.
-- Link:
-  - GitHub PR: https://github.com/openclaw/openclaw/pull/51153
-
-### 4. OpenClaw merged Telegram preview finalization hook parity
-- What happened:
-  - OpenClaw merged PR #50917 at `2026-03-20T17:12:04Z`.
-  - It now emits `message:sent` when a Telegram streaming preview is finalized, adds `messageId` to the preview-delivered callback, and skips hook emission for uncertain retained-preview paths.
-- Why it matters:
-  - This improves downstream automation correctness: hooks now better reflect actual delivered state for Telegram streaming flows.
-  - Useful if OpenClaw runs notification, analytics, or post-send workflows off hooks.
-- Evidence:
-  - The PR summary explicitly frames this as parity with normal delivery while avoiding false positives on uncertain paths.
-- Link:
-  - GitHub PR: https://github.com/openclaw/openclaw/pull/50917
-
-### 5. OpenAI announced its plan to acquire Astral for Codex
-- What happened:
-  - OpenAI announced it will acquire Astral, while Astral separately said it will join OpenAI as part of the Codex team.
-  - OpenAI said Codex has seen `3x` user growth and `5x` usage increase since the start of the year and framed the acquisition around deeper workflow integration with Python developer tooling.
-- Why it matters:
-  - This is strategically important for practical coding-agent workflows, not just market news.
-  - `uv`, `ruff`, and `ty` sit in exactly the quality/dependency/type-check path that coding agents need to touch safely and repeatedly.
-  - The strongest near-term implication is better tool-chain alignment for Python-centric agent execution and verification loops.
-- Evidence:
-  - OpenAI says it plans to continue supporting Astral’s open-source products and explore tighter Codex integration; Astral says it will continue building in the open after closing.
+  - Release notes explicitly mention remote-browser keepalive, XPath support, and auth login readiness changes.
 - Links:
-  - OpenAI: https://openai.com/index/openai-to-acquire-astral/
-  - Astral: https://astral.sh/blog/openai
+  - `v0.21.4`: https://github.com/vercel-labs/agent-browser/releases/tag/v0.21.4
+  - `v0.21.3`: https://github.com/vercel-labs/agent-browser/releases/tag/v0.21.3
+
+### 3. OpenClaw landed a fresh Telegram account-routing fix with direct behavior impact
+- What happened:
+  - OpenClaw commit `4e45a66` (`fix(telegram): prevent silent wrong-bot routing when accountId not in config`) landed at `2026-03-20T05:13:01Z`.
+  - A follow-up changelog commit `35ac1f6` was added at `2026-03-20T17:51:53Z`.
+- Why it matters:
+  - This is a concrete delivery-correctness fix for multi-account Telegram setups.
+  - It matters operationally because silent wrong-bot routing is worse than a loud failure; it can make automations look healthy while delivering from the wrong identity.
+- Evidence:
+  - The commit subject is explicit, and the repo immediately added a changelog entry for the same fix.
+- Links:
+  - Fix commit: https://github.com/openclaw/openclaw/commit/4e45a663e79c897b948de3f9f5c673d1f2cf39d5
+  - Changelog commit: https://github.com/openclaw/openclaw/commit/35ac1f6e07aa6c9ac4884f6658b3ec481ad77b13
+
+### 4. OpenClaw docs/plugin surface is being actively renamed and normalized
+- What happened:
+  - OpenClaw pushed a cluster of docs + SDK commits around `2026-03-20T17:17Z`–`18:00Z`, including:
+    - `a2e1991` — route bundled runtime barrels through public subpaths
+    - `ad4536f` — rename Extensions to Plugins and rewrite the building guide
+    - `5f600e1` / `3d097f1` — restructure the Tools/Plugins landing pages
+- Why it matters:
+  - This looks like a real documentation/interface consolidation rather than typo churn.
+  - The practical signal: plugin/SDK terminology and public import paths are being cleaned up, which affects how users should structure extensions/plugins and read the docs.
+- Evidence:
+  - The commit subjects explicitly reference public subpaths, renaming Extensions → Plugins, and rewriting the tools landing page.
+- Links:
+  - SDK/public-subpaths commit: https://github.com/openclaw/openclaw/commit/a2e1991ed315968b0a57f1c60d90a05f314c4d7d
+  - Docs rename commit: https://github.com/openclaw/openclaw/commit/ad4536fd7eb165b973f82c2031b2df2f7390e622
+  - Tools landing rewrite: https://github.com/openclaw/openclaw/commit/3d097f10527c026780cbd1eb1f0967d7796bf534
+
+### 5. Two open OpenClaw PRs are especially worth watching because they change operator behavior
+- What happened:
+  - PR #51165 (`feat(skills): agent-scoped policy parity + reactive snapshot refresh`) was opened at `2026-03-20T17:31:44Z`.
+  - PR #51166 (`fix(sandbox): pull pre-built image from GHCR instead of plain debian:bookworm-slim`) was opened at `2026-03-20T17:32:59Z`.
+- Why it matters:
+  - #51165 points toward stricter per-agent skill boundaries and snapshot refresh behavior — directly relevant for specialized-agent setups.
+  - #51166 fixes a very practical sandbox regression: file write/edit failures caused by missing `python3` in the pulled image.
+  - These are not merged yet, so they are watch items rather than landed guidance.
+- Evidence:
+  - PR descriptions explicitly mention skill-policy enforcement gaps and the sandbox `python3: not found` root cause.
+- Links:
+  - PR #51165: https://github.com/openclaw/openclaw/pull/51165
+  - PR #51166: https://github.com/openclaw/openclaw/pull/51166
 
 ## Practical takeaways
-- Test browser-use against any OpenClaw browser skill assumptions that still expect older `run` / remote CLI flows.
-- Prefer explicit page-load and staged selector strategies for login automation; `agent-browser` is signaling that this materially reduces SPA auth flakiness.
-- For config-writing automations, validate strict JSON paths explicitly instead of relying on JSON5-tolerant behavior.
-- Telegram delivery automations should treat final preview delivery as a first-class hook event after the OpenClaw change.
-- For Python-centric coding agents, watch for tighter Codex ↔ Astral toolchain integration around env setup, lint, and type-check loops.
+- Re-check any local OpenClaw browser wrappers that assume older `browser-use` CLI verbs or non-daemon behavior.
+- For remote browser control, prefer tools that now explicitly harden keepalive and login readiness; these two fixes remove common flaky edges.
+- In multi-account Telegram deployments, treat recent account-routing fixes as high priority because they affect delivery correctness, not just UX.
+- Watch OpenClaw’s plugin terminology/public-subpath cleanup before writing new plugin docs or examples.
+- If you rely on sandboxed coding/file edits, monitor the GHCR sandbox-image PR closely.
 
 ## Implications for OpenClaw
-- Browser tooling adapters may need a thin compatibility layer if they shell out to `browser-use` and assume older command structure.
-- OpenClaw’s own reliability work is currently focused on small but operationally meaningful edges: config parsing contracts, delivery hook correctness, and platform-specific probe behavior.
-- The Astral/Codex move raises the bar for ergonomic verification loops in Python-heavy agent workflows; OpenClaw skills should stay opinionated about lint/type/test feedback, not just generation.
+- The biggest fresh ecosystem signal is not “new repo” but “new operating pattern”: browser tools are shifting toward more durable daemons, explicit remote/cloud paths, and sturdier auth flows.
+- OpenClaw’s near-term operator surface is moving toward stricter agent scoping and clearer plugin boundaries.
+- For practical workflows, Telegram routing correctness and sandbox image correctness remain more urgent than headline features.
 
 ## Follow-up actions
-- [ ] Check whether any OpenClaw browser skills or local wrappers assume pre-#4364 `browser-use` CLI behavior.
-- [ ] Add a short note/reference about staged login detection patterns for browser automation tasks.
-- [ ] Watch the next OpenClaw release or merge for the newly reported OpenRouter auth-header bug.
-- [ ] Track whether Codex starts exposing explicit integrations or workflows around `uv`, `ruff`, or `ty`.
+- [ ] Check whether any local OpenClaw browser skills assume pre-#4364 `browser-use` CLI behavior.
+- [ ] Watch whether PR #51166 merges quickly; if yes, note it in the next scan as a sandbox reliability upgrade.
+- [ ] Track whether the Extensions → Plugins terminology shift propagates into docs/examples that this repo references.
+- [ ] Keep watching for a real new repo/fork signal; this window was mostly behavior-changing updates, not new project launches.
