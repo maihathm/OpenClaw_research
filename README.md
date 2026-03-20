@@ -1,122 +1,63 @@
 # OpenClaw Research Base
 
-A lightweight research workflow for OpenClaw to continuously track AI developments in one chosen domain, or collect practical blog posts / field tips with high signal.
+A living research repo for OpenClaw to continuously track one AI domain, collect high-signal practical posts, and turn raw updates into reusable notes.
 
-## Goal
+## What this repo is for
 
-This repository is the working memory for OpenClaw research tasks.
-
-It is designed for two recurring modes:
+This repo is the working memory for recurring research tasks such as:
 
 1. **Domain tracking**
-   - Continuously update research on a specific AI domain
-   - Example domains:
-     - coding agents
-     - AI security
-     - multimodal evaluation
-     - synthetic data
-     - inference optimization
-     - browser-use agents
-     - long-context systems
+   - track a narrow AI domain over time
+   - examples: coding agents, browser-use agents, AI security, evals, inference optimization, long-context systems
 
-2. **Tips / posts / blogs tracking**
-   - Find practical posts, blogs, engineering notes, launch writeups, and implementation tips
-   - Prefer concrete tactics, failure modes, benchmarks, architecture notes, and deployment lessons
+2. **Tips / blog / field-note hunting**
+   - collect practical posts with implementation details
+   - prefer engineering notes, release writeups, benchmark breakdowns, architecture decisions, operational lessons, and failure modes
 
----
+## Design principles
 
-## What counts as a good research item
+- **Signal over noise**: ignore generic hype and SEO sludge
+- **Primary-source first**: official docs, repos, release notes, engineering blogs, papers
+- **Practical bias**: focus on tactics, measurable results, benchmarks, code, workflows, and lessons learned
+- **Living archive**: every run should leave behind a dated note that can be reviewed later
+- **Browser fallback when needed**: prefer normal fetch/search first; escalate to browser automation only when a source is JS-heavy or blocks static extraction
 
-A research item is valuable if it contains at least one of:
+## Default workflow
 
-- a new model / framework / product / release
-- a concrete architecture or workflow
-- a benchmark or measurable result
-- a practical implementation trick
-- a failure mode or security lesson
-- a comparison between tools / models / methods
-- a deployment or operations insight
-- code, config, or reproducible steps
+This repo now ships with:
 
-Low-value items:
+- `SKILL.md` — reusable research skill for domain updates and tips hunts
+- `profiles/openclaw-agents.json` — default profile for OpenClaw / agent-tooling research
+- `references/AGENT_PROMPT.md` — reusable prompt templates
+- `references/CRAWL_PLAN.md` — source priority, cadence, and run design
+- `references/sources.json` — machine-readable source and query list
+- `references/SELENIUM_FALLBACK.md` — when and how to use browser automation
 
-- generic hype
-- vague AI trend summaries
-- reposted news with no new detail
-- SEO articles with no technical substance
+## Recommended output layout
 
----
+```text
+OpenClaw_research/
+├── README.md
+├── SKILL.md
+├── profiles/
+│   └── openclaw-agents.json
+├── references/
+│   ├── AGENT_PROMPT.md
+│   ├── CRAWL_PLAN.md
+│   ├── SELENIUM_FALLBACK.md
+│   └── sources.json
+└── research/
+    └── openclaw-agents/
+        └── YYYY-MM-DD-<slug>.md
+```
 
-## Research modes
+## Output contract
 
-### Mode A — Domain update
+Each research run should create a markdown file at:
 
-Use this mode when the user says things like:
+`research/<profile-or-domain>/YYYY-MM-DD-<slug>.md`
 
-- update research on AI coding agents
-- find the latest work in browser-use agents
-- summarize recent changes in agent security
-- collect new launches in retrieval and RAG evals
-
-Expected output:
-- a dated summary
-- a list of key items
-- source links
-- short takeaways
-- what matters for OpenClaw
-- suggested follow-up experiments or repo tasks
-
-### Mode B — Tips / blogs / practical posts
-
-Use this mode when the user says things like:
-
-- find good blog posts with tips for agent prompting
-- collect practical engineering posts on inference optimization
-- gather field notes about sandboxing agents
-- find implementation tricks for eval pipelines
-
-Expected output:
-- a curated list of posts
-- 1–3 bullet takeaways per post
-- “why this matters”
-- whether the post is tactical, strategic, benchmark-focused, or operational
-
----
-
-## Inputs
-
-Every research run should start with the following fields:
-
-- **domain**: the AI domain to track
-- **intent**: `domain-update` or `tips-hunt`
-- **time window**: e.g. last 7 days / 30 days / quarter
-- **source preference**:
-  - official docs
-  - company engineering blogs
-  - GitHub repos / release notes
-  - research papers
-  - practitioner blogs
-  - social summaries only if they link to primary sources
-- **depth**:
-  - quick scan
-  - normal
-  - deep dive
-- **output target**:
-  - note
-  - summary
-  - weekly digest
-  - source database update
-  - experiment proposal
-
----
-
-## Output format
-
-Each run should create a markdown file in:
-
-`research/<domain>/YYYY-MM-DD-<slug>.md`
-
-Recommended structure:
+Recommended note structure:
 
 ```md
 # Title
@@ -137,25 +78,61 @@ Recommended structure:
 - Evidence
 - Link
 
-### 2. <item>
-- What happened
-- Why it matters
-- Evidence
-- Link
-
 ## Practical takeaways
 - Tactic 1
 - Tactic 2
 - Tactic 3
 
 ## Implications for OpenClaw
-- What should be added to prompts
-- What should be added to workflows
-- What should be tested
-- What should be watched
+- Prompt changes
+- Workflow changes
+- What to test
+- What to watch
 
 ## Follow-up actions
 - [ ] Add source to database
 - [ ] Create experiment note
 - [ ] Compare with previous item
-- [ ] Write implementation draft
+```
+
+## Default profile
+
+The default profile bundled here is:
+
+- **`openclaw-agents`**
+  - OpenClaw ecosystem
+  - agent tooling
+  - browser automation for agents
+  - evals / guardrails / ops
+  - practical engineering posts and implementation tips
+
+You can add more profiles later for other domains.
+
+## Cadence suggestion
+
+A good default daily rhythm is:
+
+- **12:00 Asia/Saigon** — quick scan for fresh launches, releases, posts, and urgent updates
+- **23:00 Asia/Saigon** — broader end-of-day digest with takeaways and follow-up actions
+
+## Browser fallback
+
+If a source is JS-rendered, paginated, or blocks static extraction:
+
+1. Try normal search/fetch first
+2. Escalate to browser automation only if needed
+3. Prefer deterministic extraction
+4. Record when browser fallback was required
+
+See `references/SELENIUM_FALLBACK.md`.
+
+## Current environment note
+
+This repo supports Selenium/browser-assisted collection in principle, but actual execution depends on local runtime availability of browser tooling such as:
+
+- Python Selenium package
+- Chrome/Chromium
+- ChromeDriver
+- or an installed browser automation CLI
+
+If those dependencies are missing, keep the browser fallback documented and treat it as optional rather than blocking the rest of the research run.

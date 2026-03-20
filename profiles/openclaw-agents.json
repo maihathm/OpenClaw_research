@@ -1,0 +1,46 @@
+{
+  "profile_name": "openclaw-agents",
+  "domain": "OpenClaw ecosystem, AI agents, browser automation, evals, guardrails, and practical implementation tips",
+  "intent": ["domain-update", "tips-hunt"],
+  "time_windows": {
+    "midday": "last 18 hours",
+    "night": "last 12 hours"
+  },
+  "depth": {
+    "midday": "quick-scan",
+    "night": "normal"
+  },
+  "output_dir": "research/openclaw-agents",
+  "source_priority": [
+    "official OpenClaw docs and GitHub",
+    "OpenClaw changelogs, issues, PRs, and discussions",
+    "browser automation / agent framework repos",
+    "company engineering blogs and release notes",
+    "research papers and benchmarks",
+    "practitioner blogs with concrete implementation detail"
+  ],
+  "search_queries": [
+    "OpenClaw release OR changelog OR docs OR GitHub",
+    "browser-use agents benchmark engineering blog",
+    "agent browser automation evals guardrails post",
+    "coding agents implementation tips engineering blog",
+    "AI agent sandboxing or guardrails engineering writeup",
+    "browser automation for AI agents selenium playwright tips",
+    "agent evaluation benchmark release notes"
+  ],
+  "must_cover": [
+    "new launches or releases",
+    "notable repo changes or docs updates",
+    "practical engineering tips",
+    "benchmarks and measurable results",
+    "security or failure-mode lessons",
+    "anything directly useful for OpenClaw workflows"
+  ],
+  "output_requirements": {
+    "min_items": 3,
+    "max_items": 8,
+    "require_links": true,
+    "include_openclaw_implications": true,
+    "include_follow_up_actions": true
+  }
+}

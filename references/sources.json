@@ -1,0 +1,52 @@
+{
+  "profiles": {
+    "openclaw-agents": {
+      "queries": [
+        "OpenClaw GitHub releases changelog docs",
+        "site:docs.openclaw.ai OpenClaw",
+        "browser-use agents engineering blog benchmark",
+        "agent browser automation evals engineering notes",
+        "coding agents implementation tricks benchmark release",
+        "AI agent sandboxing guardrails engineering blog",
+        "selenium playwright browser automation for agents"
+      ],
+      "priority_sources": [
+        {
+          "name": "OpenClaw Docs",
+          "url": "https://docs.openclaw.ai",
+          "type": "official-docs"
+        },
+        {
+          "name": "OpenClaw GitHub",
+          "url": "https://github.com/openclaw/openclaw",
+          "type": "repo"
+        },
+        {
+          "name": "ClawHub",
+          "url": "https://clawhub.com",
+          "type": "ecosystem"
+        },
+        {
+          "name": "Vercel Labs / agent-browser",
+          "url": "https://github.com/vercel-labs/agent-browser",
+          "type": "repo"
+        },
+        {
+          "name": "Anthropic Engineering",
+          "url": "https://www.anthropic.com/engineering",
+          "type": "engineering-blog"
+        },
+        {
+          "name": "OpenAI Blog",
+          "url": "https://openai.com/news/",
+          "type": "official-blog"
+        },
+        {
+          "name": "Simon Willison blog",
+          "url": "https://simonwillison.net",
+          "type": "practitioner-blog"
+        }
+      ]
+    }
+  }
+}
