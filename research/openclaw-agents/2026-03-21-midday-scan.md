@@ -4,106 +4,86 @@
 - Domain: OpenClaw ecosystem, AI agents, browser automation, repo variants, forks, evals, guardrails, and practical usage patterns
 - Intent: repo-radar / usage-radar
 - Time window: last ~18 hours
-- Research date: 2026-03-21 01:01 Asia/Saigon / 2026-03-20 18:01 UTC
+- Research date: 2026-03-21 12:02 Asia/Saigon / 2026-03-21 05:02 UTC
 - Depth: quick-scan
 
 ## Collection notes
 - `web_search` was unavailable in this environment because the Brave API key is not configured.
-- I continued with direct primary-source checks via GitHub API/release pages and repo metadata.
-- Browser automation fallback was not required for this run.
+- I stayed on direct primary-source checks via GitHub API, release pages, commits, and PR metadata.
+- Browser automation fallback was not required.
+- I did **not** find a genuinely new high-signal OpenClaw-adjacent repo or meaningful new fork in this window; the real signal was behavior-changing release/commit movement.
 
 ## Executive summary
-- `browser-use` merged a meaningful CLI/ops redesign: per-session daemon, new `browser-use cloud` REST workflow, `--connect` auto-discovery, and built-in `upload` support.
-- `agent-browser` shipped two practical fixes in quick succession: remote-browser keepalive hardening (`v0.21.3`) and a targeted auth-login readiness fix (`v0.21.4`).
-- OpenClaw itself had fresh behavior-impacting movement around Telegram account routing, plugin/docs terminology, and two operator-relevant PRs for skills policy enforcement and sandbox image correctness.
-- I did not find a genuinely new OpenClaw-adjacent repo or meaningful new fork in this window; the signal was mostly release/PR/workflow movement.
+- OpenClaw landed three operator-facing fixes/features this morning: custom Telegram `apiRoot`, better subagent timeout partial-progress reporting, and clearer embedded transport/network errors.
+- `agent-browser` added a meaningful new capability for real browser automation: cross-origin iframe snapshots/interactions via `Target.setAutoAttach`, then immediately fixed viewport reporting for WebSocket streaming/screencast clients.
+- `browser-use` published `0.12.3`, turning yesterday’s large CLI refactor into a tagged release and bundling additional practical changes like LiteLLM support, safer DOM snapshots for password fields, and better data-grounding behavior.
+- No new repo/fork signal was strong enough to keep.
 
 ## Key findings
 
-### 1. `browser-use` merged a major CLI workflow change
+### 1. OpenClaw added custom Telegram API root support
 - What happened:
-  - `browser-use/browser-use` merged PR #4364 (`huge cli update`) at `2026-03-20T17:01:28Z`.
-  - The change rebuilds the CLI around a per-session daemon, adds a stdlib `browser-use cloud` REST command, introduces Chrome auto-discovery via `--connect`, adds `upload`, consolidates state under `~/.browser-use`, and removes older `run` / remote task flows.
+  - OpenClaw merged commit `6b4c24c` at `2026-03-21T04:40:38Z`.
+  - It adds `channels.telegram.apiRoot` / per-account `apiRoot`, threads the value through Telegram lookup/repair flows, and documents it in schema help.
 - Why it matters:
-  - This is a real operator-facing change, not cosmetic churn.
-  - It changes how long-lived browser sessions should be managed and makes file-input workflows more first-class.
-  - Any OpenClaw wrapper/skill that shells out to `browser-use` may need compatibility updates.
-- Evidence:
-  - PR summary explicitly calls out daemon lifecycle, `cloud` REST command, `--connect`, `upload`, and migration/removal notes.
-- Link:
-  - GitHub PR: https://github.com/browser-use/browser-use/pull/4364
+  - This is directly useful in regions where `api.telegram.org` is blocked or when operators run a self-hosted / proxied Bot API.
+  - It is more than docs churn: it changes deployability for constrained-network Telegram setups.
+- Evidence / link:
+  - Commit `6b4c24c`: https://github.com/openclaw/openclaw/commit/6b4c24c2e55b5b4013277bd799525086f6a0c40f
 
-### 2. `agent-browser` shipped two practical browser-control fixes within hours
+### 2. OpenClaw improved what users see when backgrounded work or provider transport fails
 - What happened:
-  - `vercel-labs/agent-browser` released `v0.21.3` at `2026-03-20T13:59:38Z` and `v0.21.4` at `2026-03-20T14:18:41Z`.
-  - `v0.21.3` adds WebSocket ping + TCP keepalive for remote browsers and fixes XPath selector handling.
-  - `v0.21.4` changes `auth login` to wait for usable selectors with staged username/email detection, reducing SPA timing failures and `networkidle` hangs.
+  - Commit `598f182` now preserves partial progress when a subagent times out, including a synthesized summary when the child only emitted tool calls.
+  - Commit `d78e13f` distinguishes connection-refused, DNS, interrupted-socket, and generic timeout cases in embedded transport error text.
 - Why it matters:
-  - These are exactly the kinds of fixes that reduce flaky agent-browser sessions in real automation.
-  - Together they improve two common pain points: idle proxy disconnects and brittle login flows.
-- Evidence:
-  - Release notes explicitly mention remote-browser keepalive, XPath support, and auth login readiness changes.
-- Links:
-  - `v0.21.4`: https://github.com/vercel-labs/agent-browser/releases/tag/v0.21.4
-  - `v0.21.3`: https://github.com/vercel-labs/agent-browser/releases/tag/v0.21.3
+  - This reduces two common operator blind spots: “did the subagent do anything before timing out?” and “was this a timeout or a network/provider path failure?”
+  - It makes notifications and debugging materially better in real workflows.
+- Evidence / links:
+  - Partial progress timeout fix: https://github.com/openclaw/openclaw/commit/598f1826d8b2bc969aace2c6459824737667218c
+  - Embedded transport error clarification: https://github.com/openclaw/openclaw/commit/d78e13f545136fcbba1feceecc5e0485a06c33a6
 
-### 3. OpenClaw landed a fresh Telegram account-routing fix with direct behavior impact
+### 3. `agent-browser` landed real cross-origin iframe support
 - What happened:
-  - OpenClaw commit `4e45a66` (`fix(telegram): prevent silent wrong-bot routing when accountId not in config`) landed at `2026-03-20T05:13:01Z`.
-  - A follow-up changelog commit `35ac1f6` was added at `2026-03-20T17:51:53Z`.
+  - Commit `59b6e5a` at `2026-03-20T21:37:33Z` adds cross-origin iframe snapshots and interactions by enabling `Target.setAutoAttach`, tracking iframe-specific CDP sessions, and routing element resolution / click / fill / screenshot flows through the effective session.
 - Why it matters:
-  - This is a concrete delivery-correctness fix for multi-account Telegram setups.
-  - It matters operationally because silent wrong-bot routing is worse than a loud failure; it can make automations look healthy while delivering from the wrong identity.
-- Evidence:
-  - The commit subject is explicit, and the repo immediately added a changelog entry for the same fix.
-- Links:
-  - Fix commit: https://github.com/openclaw/openclaw/commit/4e45a663e79c897b948de3f9f5c673d1f2cf39d5
-  - Changelog commit: https://github.com/openclaw/openclaw/commit/35ac1f6e07aa6c9ac4884f6658b3ec481ad77b13
+  - This is a practical unlock, not a cosmetic fix.
+  - Many real sites break browser agents through embedded auth/payment/content frames; this change directly improves automation coverage on those pages.
+- Evidence / link:
+  - Commit `59b6e5a`: https://github.com/vercel-labs/agent-browser/commit/59b6e5a03486b04274109a565d5eebfec71106df
 
-### 4. OpenClaw docs/plugin surface is being actively renamed and normalized
+### 4. `agent-browser` then fixed streamed viewport reporting
 - What happened:
-  - OpenClaw pushed a cluster of docs + SDK commits around `2026-03-20T17:17Z`–`18:00Z`, including:
-    - `a2e1991` — route bundled runtime barrels through public subpaths
-    - `ad4536f` — rename Extensions to Plugins and rewrite the building guide
-    - `5f600e1` / `3d097f1` — restructure the Tools/Plugins landing pages
+  - Commit `7e5baa6` at `2026-03-21T00:16:39Z` stops WebSocket status and screencast messages from hardcoding `1280x720`, instead tracking the actual viewport and using it for status updates and default screencast dimensions.
 - Why it matters:
-  - This looks like a real documentation/interface consolidation rather than typo churn.
-  - The practical signal: plugin/SDK terminology and public import paths are being cleaned up, which affects how users should structure extensions/plugins and read the docs.
-- Evidence:
-  - The commit subjects explicitly reference public subpaths, renaming Extensions → Plugins, and rewriting the tools landing page.
-- Links:
-  - SDK/public-subpaths commit: https://github.com/openclaw/openclaw/commit/a2e1991ed315968b0a57f1c60d90a05f314c4d7d
-  - Docs rename commit: https://github.com/openclaw/openclaw/commit/ad4536fd7eb165b973f82c2031b2df2f7390e622
-  - Tools landing rewrite: https://github.com/openclaw/openclaw/commit/3d097f10527c026780cbd1eb1f0967d7796bf534
+  - If you stream or remote-observe browser sessions, wrong viewport metadata causes coordinate/debug drift and misleading client state.
+  - This is a small patch with strong operational value.
+- Evidence / link:
+  - Commit `7e5baa6`: https://github.com/vercel-labs/agent-browser/commit/7e5baa6d77c73a31da9f213c53ff95ce35c5400c
 
-### 5. Two open OpenClaw PRs are especially worth watching because they change operator behavior
+### 5. `browser-use` turned the CLI/ops redesign into a release and bundled a few useful implementation changes
 - What happened:
-  - PR #51165 (`feat(skills): agent-scoped policy parity + reactive snapshot refresh`) was opened at `2026-03-20T17:31:44Z`.
-  - PR #51166 (`fix(sandbox): pull pre-built image from GHCR instead of plain debian:bookworm-slim`) was opened at `2026-03-20T17:32:59Z`.
+  - `browser-use` published release `0.12.3` at `2026-03-20T17:57:54Z`.
+  - Beyond the already-noted CLI overhaul, the release notes also mention LiteLLM support, exclusion of password field values from DOM snapshots sent to the LLM, better User-Agent handling, and data-grounding/prompt fixes.
 - Why it matters:
-  - #51165 points toward stricter per-agent skill boundaries and snapshot refresh behavior — directly relevant for specialized-agent setups.
-  - #51166 fixes a very practical sandbox regression: file write/edit failures caused by missing `python3` in the pulled image.
-  - These are not merged yet, so they are watch items rather than landed guidance.
-- Evidence:
-  - PR descriptions explicitly mention skill-policy enforcement gaps and the sandbox `python3: not found` root cause.
-- Links:
-  - PR #51165: https://github.com/openclaw/openclaw/pull/51165
-  - PR #51166: https://github.com/openclaw/openclaw/pull/51166
+  - The release tag makes the new CLI workflow “real” for downstream wrappers.
+  - The password-field snapshot exclusion is especially relevant as a concrete browser-agent safety hardening detail.
+- Evidence / link:
+  - Release `0.12.3`: https://github.com/browser-use/browser-use/releases/tag/0.12.3
 
 ## Practical takeaways
-- Re-check any local OpenClaw browser wrappers that assume older `browser-use` CLI verbs or non-daemon behavior.
-- For remote browser control, prefer tools that now explicitly harden keepalive and login readiness; these two fixes remove common flaky edges.
-- In multi-account Telegram deployments, treat recent account-routing fixes as high priority because they affect delivery correctness, not just UX.
-- Watch OpenClaw’s plugin terminology/public-subpath cleanup before writing new plugin docs or examples.
-- If you rely on sandboxed coding/file edits, monitor the GHCR sandbox-image PR closely.
+- For Telegram-heavy OpenClaw deployments, `apiRoot` is now a real lever for proxy/self-hosted Bot API setups, not a local patch you must carry.
+- Timeout handling is getting more operator-readable: partial progress from subagents is now worth surfacing in alert flows instead of collapsing to silence.
+- Cross-origin iframe support is now a real differentiator for browser tooling; it should move up the checklist when comparing browser backends for OpenClaw automation.
+- If you rely on streamed browser views, viewport-consistent status/screencast metadata matters because wrong dimensions can break downstream interpretation.
+- Re-test any `browser-use` integration against `0.12.3`, especially if you depend on the old CLI behavior.
 
 ## Implications for OpenClaw
-- The biggest fresh ecosystem signal is not “new repo” but “new operating pattern”: browser tools are shifting toward more durable daemons, explicit remote/cloud paths, and sturdier auth flows.
-- OpenClaw’s near-term operator surface is moving toward stricter agent scoping and clearer plugin boundaries.
-- For practical workflows, Telegram routing correctness and sandbox image correctness remain more urgent than headline features.
+- The strongest fresh signal is not “new project” but “better operational correctness”: deployability under network constraints, clearer failure modes, and richer timeout reporting.
+- Browser tooling continues to shift toward harder real-world cases: remote/cloud flows, flaky login fixes, and now cross-origin iframe support.
+- Practical browser-agent safety improvements are showing up in small places too, such as excluding password values from DOM snapshots.
 
 ## Follow-up actions
-- [ ] Check whether any local OpenClaw browser skills assume pre-#4364 `browser-use` CLI behavior.
-- [ ] Watch whether PR #51166 merges quickly; if yes, note it in the next scan as a sandbox reliability upgrade.
-- [ ] Track whether the Extensions → Plugins terminology shift propagates into docs/examples that this repo references.
-- [ ] Keep watching for a real new repo/fork signal; this window was mostly behavior-changing updates, not new project launches.
+- [ ] Check whether any local Telegram setup guidance should be updated to mention `channels.telegram.apiRoot`.
+- [ ] Watch for the next OpenClaw release/changelog entry that bundles the new `apiRoot` and timeout/error-reporting fixes together.
+- [ ] Re-evaluate whether `agent-browser` is now the better fallback for sites that embed key actions inside cross-origin frames.
+- [ ] Re-check any local `browser-use` wrappers against release `0.12.3` rather than the pre-release PR notes alone.
