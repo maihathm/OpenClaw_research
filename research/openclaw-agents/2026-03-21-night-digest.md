@@ -3,94 +3,99 @@
 ## Scope
 - Domain: OpenClaw ecosystem, AI agents, browser automation, repo variants, forks, evals, guardrails, and practical usage patterns
 - Intent: usage-radar / repo-radar / domain-update
-- Time window: last ~12-24 hours
-- Research date: 2026-03-21 09:58 Asia/Saigon / 2026-03-21 02:58 UTC
+- Time window: last ~12-24 hours, with emphasis on post-afternoon movement through 2026-03-21 16:04 UTC
+- Research date: 2026-03-21 23:04 Asia/Saigon / 2026-03-21 16:04 UTC
 - Depth: normal
 
 ## Collection notes
-- `web_search` was unavailable in this environment because the Brave API key is not configured.
-- I stayed on primary sources: GitHub PRs, commits, and release pages.
+- `web_search` remained unavailable in this environment because Brave API is not configured.
+- I stayed on primary sources: GitHub commits, PRs, and release pages for `openclaw/openclaw`, `vercel-labs/agent-browser`, and `browser-use/browser-use`.
 - Browser automation fallback was not required.
-- I did **not** find a genuinely new high-signal OpenClaw-adjacent repo or meaningful new fork in this window; the real signal was operator-impacting repo/release/docs movement.
+- I did **not** find a genuinely new high-signal repo or meaningful new fork in this window; the strongest signal was operator-facing behavior changes and practical workflow/debugging updates.
 
 ## Executive summary
-- `browser-use` merged a meaningful CLI/ops redesign centered on a per-session daemon, a new `browser-use cloud` REST flow, `--connect` auto-discovery, and built-in upload support.
-- `agent-browser` shipped two practical reliability fixes in quick succession: remote-browser keepalive hardening (`v0.21.3`) and auth-login readiness improvements (`v0.21.4`).
-- OpenClaw landed a concrete Telegram multi-account safety fix that prevents silent wrong-bot routing when `accountId` is missing from config.
-- OpenClaw docs/plugin surface is being actively normalized: `Extensions` → `Plugins`, clearer Tools/Skills/Plugins explanation, and more public runtime barrel exports.
-- Two fresh OpenClaw PRs remain worth watching because they affect real operator behavior: skill-policy parity / reactive snapshot refresh and sandbox image reliability.
+- OpenClaw’s strongest fresh operator signal tonight is Telegram onboarding hardening: fresh setups now default groups to mention-gated mode, and `doctor` now gives first-run guidance instead of surfacing misleading warnings.
+- OpenClaw also reduced noisy status behavior on cold starts and has three open, near-term operator-facing changes worth watching: hidden/minimized PowerShell exec windows on Windows, per-run usage lifecycle events, and `session_status` showing the real runtime model.
+- `agent-browser` did not ship a new release tonight, but three fresh PRs are practical and high-signal: runtime stream enable/disable for already-running daemon sessions, a fix for `find ... fill ... --name --exact` flag leakage, and a new-tab tracking fix when Chromium has not populated the URL yet.
+- `browser-use` showed one clearly practical operator fix: tunnel process cleanup is being made Windows-compatible. Two other open PRs (stealth mode, visual debug HUD) are notable but should be treated as watch items until merged.
 
 ## Key findings
 
-### 1. `browser-use` merged a major CLI workflow shift
+### 1. OpenClaw tightened Telegram first-run behavior for real group deployments
 - What happened:
-  - `browser-use/browser-use` merged PR #4364 (`huge cli update`) at `2026-03-20T17:01:28Z`.
-  - The PR summary says the CLI was rebuilt around a per-session daemon, adds stdlib `browser-use cloud` REST commands, introduces Chrome auto-discovery via `--connect`, adds `upload`, consolidates state under `~/.browser-use`, and simplifies install/setup.
+  - Commit `a90c509` (`2026-03-21T15:54:21Z`) changes fresh Telegram setups to default group handling to mention-gated mode.
+  - Commit `2ead75e` plus the nearby doctor/configure guidance changes add explicit first-run guidance so fresh installs are less likely to be flagged with misleading warnings before the operator has actually finished setup.
 - Why it matters:
-  - This changes the expected operating model for wrappers, long-lived sessions, and browser lifecycle handling.
-  - For operators, this is a workflow change, not cosmetic churn.
+  - This is an operator-facing safety/usability change, not cosmetic churn.
+  - Mention-gated defaults reduce accidental over-participation in group chats, and better first-run guidance lowers false-alarm debugging during onboarding.
+- Evidence / links:
+  - Mention-gated default: https://github.com/openclaw/openclaw/commit/a90c5092f224f342786760d05c1d56d598576913
+  - Doctor first-run guidance: https://github.com/openclaw/openclaw/commit/2ead75ea0e5aa259cd055871d587d9e542b2051f
+
+### 2. OpenClaw reduced noisy cold-start status probing and exposed three near-term operator upgrades to watch
+- What happened:
+  - Commit `15fd110` (`2026-03-21T15:58:14Z`) skips cold-start status probes, reducing misleading startup-time status work.
+  - Open PR #50314 adds `tools.exec.windowStyle` for Windows PowerShell so background exec can be `normal | hidden | minimized | maximized`.
+  - Open PR #51317 adds a lifecycle `usage` event carrying per-run token/cost data to the event stream.
+  - Open PR #51706 makes `session_status` show the runtime session model instead of a misleading configured default when no override is set.
+- Why it matters:
+  - Together these changes target real operator pain: noisy startup checks, pop-up PowerShell windows on Windows, weak passive usage observability, and confusing model-routing diagnostics.
+  - None is a flashy launch, but all are high-value for day-to-day operations.
+- Evidence / links:
+  - Cold-start probe skip: https://github.com/openclaw/openclaw/commit/15fd11032daf7de3a9e450b4d90f3825075f1957
+  - `tools.exec.windowStyle` PR: https://github.com/openclaw/openclaw/pull/50314
+  - Lifecycle usage event PR: https://github.com/openclaw/openclaw/pull/51317
+  - Runtime-model-in-session-status PR: https://github.com/openclaw/openclaw/pull/51706
+
+### 3. `agent-browser` is moving toward more controllable long-running daemon sessions
+- What happened:
+  - Open PR #951 adds runtime `stream enable`, `stream status`, and `stream disable` commands for already-running daemon sessions, with daemon-side stream lifecycle management and docs/tests.
+- Why it matters:
+  - This is a practical workflow improvement for operators who want to turn WebSocket streaming on only when needed, rather than deciding at daemon start.
+  - It makes daemon sessions more inspectable and reversible, which fits real remote-observation/debug workflows better than a startup-only switch.
 - Evidence / link:
-  - GitHub PR #4364: https://github.com/browser-use/browser-use/pull/4364
+  - PR #951: https://github.com/vercel-labs/agent-browser/pull/951
 
-### 2. `agent-browser` shipped two high-value reliability fixes within hours
+### 4. `agent-browser` also surfaced two small but meaningful debugging/reliability fixes
 - What happened:
-  - `v0.21.3` (`2026-03-20T13:59:38Z`) adds WebSocket ping frames and TCP keepalive for remote browsers, fixes `xpath=` selector handling, and short-circuits diffing for identical snapshots.
-  - `v0.21.4` (`2026-03-20T14:18:41Z`) improves `auth login` by waiting for usable selectors, doing staged username/email detection, and avoiding `networkidle` hangs on SPA-style pages.
+  - Open PR #955 fixes `find ... fill ... --name ... --exact` so selector flags no longer leak into the actual typed value.
+  - Open PR #956 keeps newly opened tabs in `tab_list` even before Chromium has populated URL/title fields.
 - Why it matters:
-  - These fixes directly reduce two common browser-agent failure modes: silent remote-browser disconnects and flaky login readiness.
+  - #955 is a clean operator footgun fix: bad parser behavior can silently corrupt form input during scripted automation.
+  - #956 addresses a common browser-agent race where a click opens a new tab but the control surface still appears to show only one tab.
 - Evidence / links:
-  - `v0.21.3`: https://github.com/vercel-labs/agent-browser/releases/tag/v0.21.3
-  - `v0.21.4`: https://github.com/vercel-labs/agent-browser/releases/tag/v0.21.4
+  - Fill-flag parsing fix: https://github.com/vercel-labs/agent-browser/pull/955
+  - New-tab tracking fix: https://github.com/vercel-labs/agent-browser/pull/956
 
-### 3. OpenClaw fixed a high-risk Telegram routing failure mode
+### 5. `browser-use` showed one practical Windows fix, while anti-detection/debug UX changes remain watch-items
 - What happened:
-  - Commit `4e45a66` explicitly prevents fallback to the channel-level bot token when a non-default `accountId` is specified but not found.
-  - The patch adds a refusal path instead of silently routing through the wrong bot token.
+  - Open PR #4444 makes tunnel process termination Windows-compatible instead of relying on Unix-only signal handling.
+  - Open PR #3928 proposes a stealth mode with fingerprint masking and humanized inputs.
+  - Open PR #3929 proposes a visual debug HUD that highlights the agent’s target element before interaction.
 - Why it matters:
-  - This is a correctness/safety fix for multi-account Telegram setups.
-  - Silent misdelivery is worse than visible failure because automations can appear healthy while using the wrong identity.
-- Evidence / link:
-  - Commit `4e45a66`: https://github.com/openclaw/openclaw/commit/4e45a663e79c897b948de3f9f5c673d1f2cf39d5
-
-### 4. OpenClaw docs and plugin surface are being cleaned up in ways that affect usage guidance
-- What happened:
-  - Commit `ad4536f` renames docs grouping from `Extensions` to `Plugins` and rewrites parts of the building guide.
-  - Commit `3d097f1` rewrites the tools landing page to explain the tools / skills / plugins layering more clearly.
-  - Commit `a2e1991` routes bundled runtime barrels through public subpaths and re-exports more plugin SDK/runtime types and helpers.
-- Why it matters:
-  - This is practical documentation/interface convergence: it affects how users should name things, where they import from, and how plugin-related examples should be written.
+  - #4444 is the strongest immediate signal because it fixes a real cross-platform ops bug.
+  - #3928 and #3929 are operator-relevant ideas, but until merged they should be treated as possible future usage patterns, not current guidance.
 - Evidence / links:
-  - Docs rename: https://github.com/openclaw/openclaw/commit/ad4536fd7eb165b973f82c2031b2df2f7390e622
-  - Tools/skills/plugins explainer rewrite: https://github.com/openclaw/openclaw/commit/3d097f10527c026780cbd1eb1f0967d7796bf534
-  - Public subpath/runtime export update: https://github.com/openclaw/openclaw/commit/a2e1991ed315968b0a57f1c60d90a05f314c4d7d
-
-### 5. Two open PRs are worth monitoring because they may change operator practice soon
-- What happened:
-  - PR #51165 adds agent-scoped skill-policy parity plus reactive skill snapshot refresh when policy/filter changes, not just version bumps.
-  - PR #51166 aims to fix sandbox-image behavior by pulling a prebuilt GHCR image instead of relying on a plain `debian:bookworm-slim` path that misses required tooling; review comments also highlight ARM64 tag selection and dead fallback-path risk.
-- Why it matters:
-  - #51165 matters for specialized-agent isolation and predictable skill boundaries.
-  - #51166 matters because sandbox file editing can fail for installed users if the image/tooling path is wrong.
-- Evidence / links:
-  - PR #51165: https://github.com/openclaw/openclaw/pull/51165
-  - PR #51166: https://github.com/openclaw/openclaw/pull/51166
+  - Windows tunnel kill fix: https://github.com/browser-use/browser-use/pull/4444
+  - Stealth mode proposal: https://github.com/browser-use/browser-use/pull/3928
+  - Visual debug HUD proposal: https://github.com/browser-use/browser-use/pull/3929
 
 ## Practical takeaways
-- Re-check any wrapper or skill that assumes older `browser-use` CLI verbs or a non-daemon session model.
-- For remote browser sessions, keepalive behavior and login-readiness handling now look like first-class reliability requirements rather than optional polish.
-- In Telegram multi-account deployments, prefer loud failure over silent fallback; recent OpenClaw behavior is moving in the right direction.
-- When writing OpenClaw docs/examples, align terminology with `Plugins`, not `Extensions`, and expect more public subpath-based imports.
-- Watch the sandbox-image PR closely if you rely on coding/file-edit agents, especially on non-amd64 hosts.
+- For OpenClaw Telegram deployments, assume the product is now biasing toward safer, mention-gated group participation and more explicit first-run guidance; onboarding docs/examples should match that mental model.
+- On Windows, watch OpenClaw’s `tools.exec.windowStyle` closely: it would remove an annoying background-task UX wart without command-wrapper hacks.
+- For streamed browser sessions, `agent-browser` is increasingly acting like a controllable long-lived runtime rather than a one-shot CLI. Runtime stream toggles would make ad hoc inspection much easier.
+- Treat parser/race-condition fixes in browser tools as high-signal even when small: bad fill parsing and tab-list desync are exactly the kinds of bugs that waste operator time.
+- For `browser-use`, the concrete near-term guidance is still conservative: prioritize merged cross-platform fixes over unmerged stealth claims.
 
 ## Implications for OpenClaw
-- The most important fresh ecosystem signal is a shift toward more durable browser-session infrastructure: daemonized control, cloud/REST paths, keepalive hardening, and explicit login-readiness logic.
-- OpenClaw itself is tightening correctness at the edges that matter operationally: account routing, skill scoping, and sandbox-image reliability.
-- Documentation cleanup is not just cosmetic; it is converging the mental model for tools, skills, and plugins, which should reduce user/operator confusion.
+- The strongest nightly signal is not ecosystem expansion but operational tightening: safer Telegram defaults, calmer health/status behavior, and better observability/Windows ergonomics in flight.
+- Adjacent browser tooling continues to reward reliability-focused reading over headline-chasing. Small parser, tab, stream, and process-lifecycle fixes are more decision-useful than generic “agent” announcements.
+- If OpenClaw’s session/usage observability PRs land, external dashboards and cron-delivered research workflows will become easier to audit without extra transcript scraping.
 
 ## Follow-up actions
-- [ ] Check whether any local OpenClaw browser skills still assume pre-#4364 `browser-use` CLI behavior.
-- [ ] Watch whether PR #51166 merges quickly; if it does, treat it as a real sandbox reliability upgrade worth folding into operator guidance.
-- [ ] Watch whether PR #51165 lands without the snapshot-refresh regressions flagged in review.
-- [ ] Update future OpenClaw examples/notes to use `Plugins` terminology consistently.
+- [ ] Update any local OpenClaw Telegram setup notes to reflect mention-gated group defaults and doctor first-run guidance.
+- [ ] Re-check whether `tools.exec.windowStyle` lands soon; if it does, fold it into Windows operator guidance immediately.
+- [ ] Watch whether `agent-browser` runtime stream controls merge, since that would be a meaningful new usage pattern for long-running daemon sessions.
+- [ ] Keep `browser-use` stealth/debug HUD items on watchlist only until there is a merged release-worthy signal.
 
-Usage: 5h 96% left (4h54m) · week 84% left (6d13h)
+Usage: 5h 97% left (4h15m) · week 75% left (6d0h)
