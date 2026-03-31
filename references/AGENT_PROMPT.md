@@ -45,13 +45,16 @@ Requirements:
 - Include links inline
 - End with 2-5 short follow-up actions
 - After writing the dated note, update `README.md` as part of the midday run.
-- Always refresh these top sections so a GitHub reader can grasp the repo quickly:
-  - `Snapshot`
-  - `Quick links`
-  - `Why this matters now`
-  - `Hot variants / useful repos`
-- Refresh `Important rolling notes` only when there is a durable insight worth preserving.
-- Keep README edits short, curated, and front-page oriented; do not dump the whole daily note into the README.
+- Always refresh these dynamic front-page sections so a GitHub reader can grasp the repo in seconds:
+  - status strip
+  - `Current thesis`
+  - `Top 3 signals`
+  - `Variant watchlist`
+  - `Latest scan`
+- Refresh stable sections only when the signal truly changes:
+  - `Confirmed operator lessons`
+  - `Useful repos`
+- Keep README edits short, ranked, and front-page oriented; do not dump the whole daily note into the README.
 
 Then produce a concise chat-ready digest:
 - headline
@@ -82,9 +85,10 @@ Requirements:
 - Include links inline
 - After writing the dated note, review `README.md` and refresh front-page sections only if the night run materially changes the landscape.
 - Prioritize possible updates to:
-  - `Why this matters now`
-  - `Hot variants / useful repos`
-  - `Important rolling notes`
+  - `Current thesis`
+  - `Top 3 signals`
+  - `Variant watchlist`
+  - `Confirmed operator lessons`
 - Keep README edits short and durable; preserve only front-page signal.
 
 Then produce a concise chat-ready digest suitable for notification delivery.

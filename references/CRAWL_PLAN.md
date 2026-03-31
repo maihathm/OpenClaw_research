@@ -86,15 +86,16 @@ Each run should also review `README.md`.
 
 For the **midday run**, README refresh is part of the default deliverable. The top of the README should work like a compact dashboard for fast readers.
 
-Always refresh these sections after the midday scan:
-- `Snapshot`
-- `Quick links`
-- `Why this matters now`
-- `Hot variants / useful repos`
+Always refresh these dynamic sections after the midday scan:
+- status strip
+- `Current thesis`
+- `Top 3 signals`
+- `Variant watchlist`
+- `Latest scan`
 
-Update other front-page sections when there is:
+Update more stable sections only when there is:
 - a meaningful status change for an existing watch item
-- a durable operator takeaway worth preserving in `Important rolling notes`
+- a durable operator takeaway worth preserving in `Confirmed operator lessons`
 - a core OpenClaw change that materially changes the short landscape summary
 
 Keep README edits curated and small. Use README for durable signal, not for dumping all daily findings.

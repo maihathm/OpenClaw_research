@@ -81,17 +81,19 @@ For each accepted item, record:
 
 Also review `README.md` after each run.
 
-For the **midday run**, treat README refresh as part of the default output, not as an optional afterthought. The top of the README should behave like a small front-page dashboard for fast readers.
+For the **midday run**, treat README refresh as part of the default output, not as an optional afterthought. The top of the README should behave like a compact front-page dashboard for fast readers.
 
-Always refresh these top sections after the midday scan:
-- `Snapshot`
-- `Quick links`
-- `Why this matters now`
-- `Hot variants / useful repos`
+Always refresh these dynamic top sections after the midday scan:
+- status strip
+- `Current thesis`
+- `Top 3 signals`
+- `Variant watchlist`
+- `Latest scan`
 
-Refresh these lower sections only when the signal justifies it:
-- `Important rolling notes`
-- other durable front-page summaries
+Refresh these lower or stable sections only when the signal justifies it:
+- `Confirmed operator lessons`
+- `Useful repos`
+- other durable summaries
 
 Use README only for durable, front-page signal. Keep transient detail in the dated research note.
 
