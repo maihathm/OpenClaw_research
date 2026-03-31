@@ -79,12 +79,19 @@ For each accepted item, record:
 - practical takeaway
 - implication for OpenClaw or the tracked domain
 
-Also review `README.md` after each run and make a small front-page refresh when warranted.
+Also review `README.md` after each run.
 
-Refresh these sections when the signal justifies it:
-- `Latest update`
+For the **midday run**, treat README refresh as part of the default output, not as an optional afterthought. The top of the README should behave like a small front-page dashboard for fast readers.
+
+Always refresh these top sections after the midday scan:
+- `Snapshot`
+- `Quick links`
+- `Why this matters now`
+- `Hot variants / useful repos`
+
+Refresh these lower sections only when the signal justifies it:
 - `Important rolling notes`
-- `OpenClaw variants / useful repos watch table`
+- other durable front-page summaries
 
 Use README only for durable, front-page signal. Keep transient detail in the dated research note.
 

@@ -44,11 +44,14 @@ Requirements:
 - Save the result to `research/openclaw-agents/YYYY-MM-DD-midday-scan.md`
 - Include links inline
 - End with 2-5 short follow-up actions
-- After writing the dated note, review `README.md` and refresh these sections if needed:
-  - `Latest update`
-  - `Important rolling notes`
-  - `OpenClaw variants / useful repos watch table`
-- Keep README edits short and durable; do not dump the whole daily note into the README
+- After writing the dated note, update `README.md` as part of the midday run.
+- Always refresh these top sections so a GitHub reader can grasp the repo quickly:
+  - `Snapshot`
+  - `Quick links`
+  - `Why this matters now`
+  - `Hot variants / useful repos`
+- Refresh `Important rolling notes` only when there is a durable insight worth preserving.
+- Keep README edits short, curated, and front-page oriented; do not dump the whole daily note into the README.
 
 Then produce a concise chat-ready digest:
 - headline
@@ -77,11 +80,12 @@ Requirements:
 - Save the result to `research/openclaw-agents/YYYY-MM-DD-night-digest.md`
 - Include: executive summary, key findings, practical takeaways, implications for OpenClaw, follow-up actions
 - Include links inline
-- After writing the dated note, review `README.md` and refresh these sections if needed:
-  - `Latest update`
+- After writing the dated note, review `README.md` and refresh front-page sections only if the night run materially changes the landscape.
+- Prioritize possible updates to:
+  - `Why this matters now`
+  - `Hot variants / useful repos`
   - `Important rolling notes`
-  - `OpenClaw variants / useful repos watch table`
-- Keep README edits short and durable; preserve only front-page signal
+- Keep README edits short and durable; preserve only front-page signal.
 
 Then produce a concise chat-ready digest suitable for notification delivery.
 ```

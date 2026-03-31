@@ -82,10 +82,17 @@ Each note should include:
 - implications for OpenClaw
 - follow-up actions
 
-Each run should also review `README.md` and make a small front-page refresh when warranted.
+Each run should also review `README.md`.
 
-Update `README.md` when there is:
-- a new repo or variant worth adding to the watch table
+For the **midday run**, README refresh is part of the default deliverable. The top of the README should work like a compact dashboard for fast readers.
+
+Always refresh these sections after the midday scan:
+- `Snapshot`
+- `Quick links`
+- `Why this matters now`
+- `Hot variants / useful repos`
+
+Update other front-page sections when there is:
 - a meaningful status change for an existing watch item
 - a durable operator takeaway worth preserving in `Important rolling notes`
 - a core OpenClaw change that materially changes the short landscape summary
