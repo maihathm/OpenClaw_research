@@ -1,159 +1,115 @@
 # OpenClaw Research Base
 
-> A curated, high-signal research hub for the **OpenClaw ecosystem**, adjacent agent tooling, practical operator workflows, and meaningful implementation variants.
+> Curated signal for the **OpenClaw ecosystem**: core changes, useful variants, operator workflows, and practical implementation patterns.
 
 <p align="center">
-  <b>Track what changed.</b> • <b>Keep what matters.</b> • <b>Ignore the hype.</b>
+  <b>Hot updates first.</b> • <b>Operator value over hype.</b> • <b>Curated, not exhaustive.</b>
 </p>
+
+---
+
+> [!IMPORTANT]
+> **Current thesis:** the strongest signal still comes from **OpenClaw core behavior changes + practical operator variants**, not generic agent-framework noise.
+
+## Hot right now
+
+- **Highest-priority source:** `openclaw/openclaw` core commits affecting routing, cron, isolated execution, or security behavior.
+- **Most actionable patterns:** voice bridges, model/persona switching, regional search fallback, and rate-limit-aware orchestration.
+- **Current filter rule:** new repos stay on **watchlist** until they show reproducibility, docs depth, or clear operator value.
+
+---
+
+## Top things to know
+
+### 1. Core OpenClaw changes matter more than ecosystem chatter
+If upstream changes routing, cron, session flow, or security defaults, it can change real workflow assumptions immediately.
+
+### 2. Small practical variants are often more useful than big “new framework” launches
+The best external signal lately has come from operator-facing ideas: wrappers, fallbacks, orchestration tricks, and integrations.
+
+### 3. This repo is a curated radar, not a news dump
+The goal is not completeness. The goal is to stay **decision-useful**.
+
+---
+
+## Hot variants / useful repos
+
+| Project / Variant | Why it matters | Status |
+|---|---|---|
+| `openclaw/openclaw` | Primary source for behavior-changing commits and safe-default changes | **Top priority** |
+| `TotzkePaul/OpenClawDiscordVC` | Concrete OpenClaw-shaped Discord voice pipeline with practical debug detail | **Hot / practical** |
+| `frankekn/openclaw-model-switcher` | Model switching as persona/bootstrap/workspace switching | **Useful pattern** |
+| `akhilc08/mission-control` | Strong pause-resume pattern for rate-limit-aware agent workflows | **Worth extracting** |
+| `z-imagine/openclaw-baidu-search` | Regional search plugin with API + scraper fallback design | **Useful but early** |
+| `Aston1690/vercel-sandbox` | Hosted browser execution wrapper using Vercel microVM flow | **Interesting** |
+| `XingP14/clawlink` | Multi-agent adjacent, but still more watchlist than proven workflow value | **Watchlist** |
+
+### Confidence guide
+- **Top priority** = monitor closely
+- **Hot / practical** = directly worth trying or learning from
+- **Useful pattern** = the idea matters even if the repo is early
+- **Watchlist** = interesting, but not yet promoted
+
+---
+
+## Latest scan
+
+- **Latest note:** `research/openclaw-agents/2026-03-31-midday-scan.md`
+- **Last front-page refresh:** 2026-03-31
+- **Best next click:** open the latest scan note, then return here for the short watchlist view.
+
+---
+
+## Important rolling notes
+
+### OpenClaw core commit flow deserves front-row attention
+Recent changes around Telegram routing, cron isolated retry behavior, detached execution, and SSRF hardening had direct operator impact.
+
+### Practical operator patterns matter more than framework churn
+The best recent external signal has come from operator-facing patterns such as model-aware switching, fallback plugins, hosted browser wrappers, and voice bridges.
+
+### New repos should earn promotion
+A repo being new is not enough. It should show reproducibility, docs depth, practical value, or a reusable pattern before moving beyond watchlist status.
+
+### Extract patterns, not just headlines
+The most reusable takeaway is often the underlying pattern: fallback design, resume logic, routing/session handling, packaging strategy, or workflow improvement.
+
+---
+
+## What this repo tracks
+
+This repo focuses on:
+- OpenClaw core behavior changes
+- OpenClaw-adjacent repos, plugins, and wrappers
+- browser / automation / tooling patterns useful for agents
+- deployment, debugging, rate-limit, and orchestration lessons
+- durable patterns worth preserving beyond one daily scan
 
 ---
 
 ## Why this repo exists
 
 Most agent-news streams are noisy.
-This repo is meant to answer a narrower, more useful question:
+This repo is meant to answer a narrower question:
 
 > **What changed in the OpenClaw / agent-tooling ecosystem that is actually worth an operator's attention?**
 
-This means prioritizing:
-- **behavior-changing core updates**
-- **useful new repos / variants / plugins**
-- **practical workflows worth copying**
-- **deployment / debugging / orchestration lessons**
-- **durable patterns**, not just headlines
-
----
-
-## Snapshot
-
-> [!IMPORTANT]
-> **Current thesis:** the strongest signal is still coming from **OpenClaw core changes + practical operator variants**, not from generic “new agent framework” noise.
-
-### What is hot right now
-
-- **OpenClaw core commits** are still the highest-priority source when they affect routing, cron, isolated execution, or security behavior.
-- **Voice bridges, model/persona switching, regional search fallback, and rate-limit-aware orchestration** are currently more actionable than broad launch hype.
-- **New repos should stay on watchlist status first** until they prove setup depth, reproducibility, or operator value.
-
-### Fastest way to understand this repo
-
-1. Read **this README** for the front-page view.
-2. Check the **hot variants table** below.
-3. Open the **latest dated scan note**.
-4. Dive into `references/` only if you want the workflow details.
+That means prioritizing:
+- behavior-changing core updates
+- useful variants / plugins
+- practical workflows worth copying
+- deployment / debugging / orchestration lessons
+- durable patterns, not just headlines
 
 ---
 
 ## Quick links
 
-- **Latest scan:** `research/openclaw-agents/2026-03-31-midday-scan.md`
 - **Profile:** `profiles/openclaw-agents.json`
 - **Workflow guide:** `references/SKILL.md`
 - **Crawl plan:** `references/CRAWL_PLAN.md`
 - **Prompt template:** `references/AGENT_PROMPT.md`
 - **Focus surface:** `references/FOCUS.md`
-
----
-
-## What to look at first
-
-### If you are a reader
-Start here:
-- **Snapshot**
-- **Why this matters now**
-- **Hot variants / useful repos**
-- **Latest scan**
-
-### If you are maintaining the repo
-Start here:
-- `references/SKILL.md`
-- `references/CRAWL_PLAN.md`
-- `references/AGENT_PROMPT.md`
-
----
-
-## Why this matters now
-
-> [!TIP]
-> The best signal in this space is often **not** a giant new framework.
-> It is usually a smaller, more transferable pattern:
-> a routing fix, a safer fallback, a better orchestration trick, a deployable wrapper, or a tool-usage pattern that clearly improves operator workflow.
-
-### Current high-value patterns
-
-- **Core runtime / routing / cron behavior changes**
-- **Model-aware persona or bootstrap switching**
-- **Search fallback patterns for constrained regions/providers**
-- **Hosted browser execution wrappers**
-- **Pause / resume patterns for usage- or rate-limit-aware agent work**
-- **Voice integrations shaped around OpenClaw workflows**
-
----
-
-## Hot variants / useful repos
-
-> [!NOTE]
-> This table is intentionally curated. Fewer rows, higher signal.
-
-| Project / Variant | Type | Highlight | Status | What to watch |
-|---|---|---|---|---|
-| `openclaw/openclaw` | Core upstream | The main source of behavior-changing commits: routing, cron/session/runtime flow, security hardening | **Top priority** | release notes, execution model changes, routing semantics, security defaults |
-| `TotzkePaul/OpenClawDiscordVC` | Voice integration | Concrete OpenClaw-shaped Discord voice pipeline with useful debugging detail | **Hot / practical** | reliability, setup friction, media decryption edge cases, voice quality |
-| `frankekn/openclaw-model-switcher` | Plugin / workflow variant | Treats model switching as persona/bootstrap/workspace switching | **Useful pattern** | safe file swap/restore behavior, real profile usage |
-| `akhilc08/mission-control` | Ops / orchestration pattern | Rough repo, but a strong pause-resume pattern for rate-limit-aware agent workflows | **Worth extracting** | whether the pattern becomes cleaner and more OpenClaw-native |
-| `z-imagine/openclaw-baidu-search` | Search plugin | Regional search coverage with API + scraper fallback pattern | **Useful but early** | install stability, anti-bot robustness, query quality |
-| `Aston1690/vercel-sandbox` | Deployment wrapper | Packs `agent-browser` + Chrome into a Vercel microVM flow | **Interesting** | production caveats, latency/cost tradeoffs |
-| `XingP14/clawlink` | Coordination / multi-agent adjacent | Potentially relevant, but current signal is still more roadmap/docs than proven operator value | **Watchlist** | implementation depth, interop usefulness, behavior-changing updates |
-
-### How to read the table
-
-- **Top priority** = monitor closely; likely to affect workflow assumptions.
-- **Hot / practical** = directly interesting for near-term usage or experimentation.
-- **Useful pattern** = maybe not mature, but the underlying idea is reusable.
-- **Watchlist** = worth tracking, but not yet strong enough to promote.
-
----
-
-## Important rolling notes
-
-> [!IMPORTANT]
-> Keep this section short, durable, and opinionated.
-
-### 1. OpenClaw core commit flow deserves front-row attention
-Recent changes around Telegram routing, cron isolated retry behavior, detached execution, and SSRF hardening had direct operator impact.
-
-**Why this matters:**
-- routing changes can affect message continuity and delivery semantics
-- cron / isolated execution changes can alter scheduled workflow behavior
-- security hardening changes may affect network behavior and safe defaults
-
-### 2. Practical operator patterns matter more than framework churn
-The best recent external signal has come from operator-facing patterns, not generic “agent ecosystem” noise.
-
-Examples:
-- model-aware persona switching
-- regional search fallback
-- hosted browser wrappers
-- rate-limit-aware orchestration
-- OpenClaw-shaped voice bridges
-
-### 3. New repos should earn promotion
-A repo being new is not enough.
-
-Promote it only when there is evidence of:
-- real docs depth
-- reproducible setup
-- concrete operator value
-- meaningful updates over time
-- a pattern that transfers beyond one demo
-
-### 4. Extract patterns, not just headlines
-For many repos, the most valuable takeaway is the reusable idea behind them:
-- fallback design
-- resume logic
-- routing/session handling
-- packaging strategy
-- operator-facing workflow improvements
 
 ---
 
@@ -166,11 +122,11 @@ Save a note under:
 - `research/openclaw-agents/YYYY-MM-DD-<slug>.md`
 
 ### 2. Refresh the front page lightly
-Update this README only when there is durable front-page signal, especially:
+Update this README when there is durable front-page signal, especially:
 - a new repo / variant worth adding
 - a meaningful status change for an existing watch item
 - an operator takeaway worth preserving
-- a core OpenClaw change that changes the short landscape summary
+- a core OpenClaw change that alters the short landscape summary
 
 > [!WARNING]
 > Do **not** turn the README into a dump of daily findings.
@@ -243,19 +199,6 @@ Recommended note structure:
 - [ ] Create experiment note
 - [ ] Compare with previous item
 ```
-
----
-
-## Reader-first design rules for this README
-
-This front page should help a first-time GitHub visitor answer four questions fast:
-
-1. **What is this repo tracking?**
-2. **Why should I care?**
-3. **What is hot right now?**
-4. **Where should I click next?**
-
-If a section does not help answer one of those, it should move lower or be shortened.
 
 ---
 
