@@ -82,6 +82,16 @@ Each note should include:
 - implications for OpenClaw
 - follow-up actions
 
+Each run should also review `README.md` and make a small front-page refresh when warranted.
+
+Update `README.md` when there is:
+- a new repo or variant worth adding to the watch table
+- a meaningful status change for an existing watch item
+- a durable operator takeaway worth preserving in `Important rolling notes`
+- a core OpenClaw change that materially changes the short landscape summary
+
+Keep README edits curated and small. Use README for durable signal, not for dumping all daily findings.
+
 ## Browser Fallback Policy
 
 Escalate to Selenium or another browser automation method only when:

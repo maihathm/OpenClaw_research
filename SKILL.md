@@ -79,6 +79,15 @@ For each accepted item, record:
 - practical takeaway
 - implication for OpenClaw or the tracked domain
 
+Also review `README.md` after each run and make a small front-page refresh when warranted.
+
+Refresh these sections when the signal justifies it:
+- `Latest update`
+- `Important rolling notes`
+- `OpenClaw variants / useful repos watch table`
+
+Use README only for durable, front-page signal. Keep transient detail in the dated research note.
+
 ### 5. Compare with prior runs
 
 Avoid repeating unchanged items unless there is a real new angle:
