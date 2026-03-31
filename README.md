@@ -39,7 +39,7 @@ Every crawl should produce:
 If you are new to this repo, read in this order:
 
 1. `README.md`
-2. `SKILL.md`
+2. `references/SKILL.md`
 3. `profiles/openclaw-agents.json`
 4. `references/CRAWL_PLAN.md`
 5. `references/FOCUS.md`
@@ -145,10 +145,10 @@ For each crawl:
 ```text
 OpenClaw_research/
 ├── README.md
-├── SKILL.md
 ├── profiles/
 │   └── openclaw-agents.json
 ├── references/
+│   ├── SKILL.md
 │   ├── AGENT_PROMPT.md
 │   ├── CRAWL_PLAN.md
 │   ├── FOCUS.md

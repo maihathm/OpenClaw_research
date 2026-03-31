@@ -27,7 +27,7 @@ Research rules:
 ```text
 Read these files first:
 - README.md
-- SKILL.md
+- references/SKILL.md
 - profiles/openclaw-agents.json
 - references/CRAWL_PLAN.md
 - references/sources.json
@@ -61,7 +61,7 @@ Then produce a concise chat-ready digest:
 ```text
 Read these files first:
 - README.md
-- SKILL.md
+- references/SKILL.md
 - profiles/openclaw-agents.json
 - references/CRAWL_PLAN.md
 - references/sources.json
