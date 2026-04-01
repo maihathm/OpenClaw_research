@@ -4,37 +4,39 @@
 
 ---
 
-`Status: Active` · `Last scan: 2026-03-31 12:03 Asia/Saigon` · `Coverage: core + 7 tracked items`
+`Status: Active` · `Last scan: 2026-04-01 12:02 Asia/Saigon` · `Coverage: core + 8 tracked items`
 
 ## Current thesis
 
-> The strongest signal still comes from **OpenClaw core behavior changes** and a small set of **practical operator variants**.
-> Generic agent-framework noise matters less than routing, cron, execution, fallback, and orchestration patterns that change real usage.
+> The strongest signal remains **OpenClaw core behavior change**, but the best secondary signal is now **operator-ready variants with runnable examples**.
+> Security defaults, detached task control, browser reliability, and shared-memory coordination patterns matter more than generic agent launches.
 
 ---
 
 ## Top 3 signals
 
-`#1` **OpenClaw core commits remain the highest-priority surface** — routing, cron, isolated execution, and security changes can alter workflow assumptions immediately.
+`#1` **OpenClaw `v2026.3.31` is a real workflow update, not background churn** — install safety, node trust boundaries, and detached task orchestration all changed in ways operators will feel.
 
-`#2` **Operator-facing variants are where the best external signal is** — voice bridges, model/persona switching, regional search fallback, and rate-limit-aware orchestration are more actionable than broad launch hype.
+`#2` **Reliability fixes in browser tooling are high-value signal** — `agent-browser` fixing a Linux daemon hang is more actionable than another UI/demo feature.
 
-`#3` **New repos should stay on watchlist first** — promote only when they show reproducibility, docs depth, or clear operator value.
+`#3` **Variants earn attention when they ship runnable integration artifacts** — `clawlink` adding an interactive WebSocket example is a better signal than a generic “shared memory” pitch deck.
 
 ---
 
 ## Variant watchlist
 
 ### Core signals
-- [ ] `openclaw/openclaw` — watch for behavior-changing commits, release notes, routing semantics, and security defaults
+- [ ] `openclaw/openclaw` — watch for behavior-changing commits, release notes, routing semantics, task-control changes, and security defaults
 - [ ] `TotzkePaul/OpenClawDiscordVC` — watch reliability, setup friction, and media decryption edge cases
 - [ ] `frankekn/openclaw-model-switcher` — watch safe file swap/restore behavior and real profile usage
+- [ ] `vercel-labs/agent-browser` — watch daemon reliability, provider compatibility, and practical fallback fit for OpenClaw browser workflows
 
 ### Experimental
 - [ ] `akhilc08/mission-control` — strong pause-resume idea, but still rough
 - [ ] `z-imagine/openclaw-baidu-search` — useful fallback pattern, still early
 - [ ] `Aston1690/vercel-sandbox` — interesting hosted browser wrapper, needs stronger production evidence
-- [ ] `XingP14/clawlink` — adjacent coordination signal, still more watchlist than proven workflow value
+- [ ] `XingP14/clawlink` — now more interesting because it has a runnable WebSocket example, but still early
+- [ ] `AliNek09/openclaw-google-trends` — new thin skill repo; watch whether it develops beyond a one-off packaged data source
 
 ---
 
@@ -63,7 +65,7 @@
 
 ## Latest scan
 
-- `research/openclaw-agents/2026-03-31-midday-scan.md`
+- `research/openclaw-agents/2026-04-01-midday-scan.md`
 
 ## Archive
 
