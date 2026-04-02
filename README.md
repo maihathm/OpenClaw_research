@@ -4,29 +4,29 @@
 
 ---
 
-`Status: Active` · `Last scan: 2026-04-01 12:02 Asia/Saigon` · `Coverage: core + 8 tracked items`
+`Status: Active` · `Last scan: 2026-04-02 12:03 Asia/Saigon` · `Coverage: core + 9 tracked items`
 
 ## Current thesis
 
-> The strongest signal remains **OpenClaw core behavior change**, but the best secondary signal is now **operator-ready variants with runnable examples**.
-> Security defaults, detached task control, browser reliability, and shared-memory coordination patterns matter more than generic agent launches.
+> The strongest signal remains **OpenClaw core workflow change**, but the best secondary signal is now **variants that reduce integration friction across real agent runtimes**.
+> Background task visibility, search/provider control, safer automation surfaces, and runnable cross-agent memory patterns matter more than generic agent launches.
 
 ---
 
 ## Top 3 signals
 
-`#1` **OpenClaw `v2026.3.31` is a real workflow update, not background churn** — install safety, node trust boundaries, and detached task orchestration all changed in ways operators will feel.
+`#1` **OpenClaw `v2026.4.1` is an operator-facing release** — `/tasks`, bundled SearXNG search, cron tool allowlists, provider default params, and approval/task fixes all change real usage.
 
-`#2` **Reliability fixes in browser tooling are high-value signal** — `agent-browser` fixing a Linux daemon hang is more actionable than another UI/demo feature.
+`#2` **`clawlink` becoming `woclaw` is meaningful because it now ships runnable cross-agent packaging** — Codex CLI integration, Dockerized hub docs, and auto-connect fixes make the shared-memory pattern more trial-ready.
 
-`#3` **Variants earn attention when they ship runnable integration artifacts** — `clawlink` adding an interactive WebSocket example is a better signal than a generic “shared memory” pitch deck.
+`#3` **Executable skill+integration bundles are emerging as a better ecosystem pattern than generic demos** — `hackathon-copilot` is notable because it couples OpenClaw skills with deterministic Feishu CLI write/export flows.
 
 ---
 
 ## Variant watchlist
 
 ### Core signals
-- [ ] `openclaw/openclaw` — watch for behavior-changing commits, release notes, routing semantics, task-control changes, and security defaults
+- [ ] `openclaw/openclaw` — watch for behavior-changing releases, routing semantics, `/tasks` evolution, search/provider changes, and approval/task-control fixes
 - [ ] `TotzkePaul/OpenClawDiscordVC` — watch reliability, setup friction, and media decryption edge cases
 - [ ] `frankekn/openclaw-model-switcher` — watch safe file swap/restore behavior and real profile usage
 - [ ] `vercel-labs/agent-browser` — watch daemon reliability, provider compatibility, and practical fallback fit for OpenClaw browser workflows
@@ -35,8 +35,9 @@
 - [ ] `akhilc08/mission-control` — strong pause-resume idea, but still rough
 - [ ] `z-imagine/openclaw-baidu-search` — useful fallback pattern, still early
 - [ ] `Aston1690/vercel-sandbox` — interesting hosted browser wrapper, needs stronger production evidence
-- [ ] `XingP14/clawlink` — now more interesting because it has a runnable WebSocket example, but still early
-- [ ] `AliNek09/openclaw-google-trends` — new thin skill repo; watch whether it develops beyond a one-off packaged data source
+- [ ] `XingP14/woclaw` — much more interesting now that it has Codex support and clearer packaging, but still needs real operator proof
+- [ ] `AliNek09/openclaw-google-trends` — thin skill repo; watch whether it develops beyond a one-off packaged data source
+- [ ] `sealofyou/hackathon-copilot` — new skill-suite + CLI bridge pattern; watch whether it becomes reusable beyond the current Feishu workflow
 
 ---
 
@@ -65,7 +66,7 @@
 
 ## Latest scan
 
-- `research/openclaw-agents/2026-04-01-midday-scan.md`
+- `research/openclaw-agents/2026-04-02-midday-scan.md`
 
 ## Archive
 
