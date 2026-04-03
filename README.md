@@ -4,22 +4,22 @@
 
 ---
 
-`Status: Active` · `Last scan: 2026-04-02 12:03 Asia/Saigon` · `Coverage: core + 9 tracked items`
+`Status: Active` · `Last scan: 2026-04-03 12:01 Asia/Saigon` · `Coverage: core + 11 tracked items`
 
 ## Current thesis
 
-> The strongest signal remains **OpenClaw core workflow change**, but the best secondary signal is now **variants that reduce integration friction across real agent runtimes**.
-> Background task visibility, search/provider control, safer automation surfaces, and runnable cross-agent memory patterns matter more than generic agent launches.
+> The strongest signal is again **upstream OpenClaw behavior change**, but the more durable secondary signal is now **small, inspectable operational components** rather than broad agent wrappers.
+> Config-surface moves, task/scheduler semantics, privacy-at-the-edge plugins, lightweight routing skills, and more operable cross-agent runtime layers matter more than generic launch noise.
 
 ---
 
 ## Top 3 signals
 
-`#1` **OpenClaw `v2026.4.1` is an operator-facing release** — `/tasks`, bundled SearXNG search, cron tool allowlists, provider default params, and approval/task fixes all change real usage.
+`#1` **OpenClaw `v2026.4.2` is a real operator release** — config ownership moved for `x_search` and Firecrawl-backed `web_fetch`, Task Flow was restored as a more durable substrate, and host exec defaults shifted in a more aggressive direction.
 
-`#2` **`clawlink` becoming `woclaw` is meaningful because it now ships runnable cross-agent packaging** — Codex CLI integration, Dockerized hub docs, and auto-connect fixes make the shared-memory pattern more trial-ready.
+`#2` **Fresh upstream issues already make `v2026.4.2` worth watching carefully** — one report flags duplicate cron startup catch-up runs, another reports lost async tool results in replies.
 
-`#3` **Executable skill+integration bundles are emerging as a better ecosystem pattern than generic demos** — `hackathon-copilot` is notable because it couples OpenClaw skills with deterministic Feishu CLI write/export flows.
+`#3` **The best ecosystem signal is now concrete packaging, not generic agent launches** — `woclaw` added a more usable CLI/dashboard layer, while `data-guard` and `models-triage` package privacy and routing as small OpenClaw-ready components.
 
 ---
 
@@ -35,9 +35,11 @@
 - [ ] `akhilc08/mission-control` — strong pause-resume idea, but still rough
 - [ ] `z-imagine/openclaw-baidu-search` — useful fallback pattern, still early
 - [ ] `Aston1690/vercel-sandbox` — interesting hosted browser wrapper, needs stronger production evidence
-- [ ] `XingP14/woclaw` — much more interesting now that it has Codex support and clearer packaging, but still needs real operator proof
+- [ ] `XingP14/woclaw` — increasingly interesting now that it has CLI/dashboard ergonomics in addition to multi-runtime packaging, but still needs stronger operator proof
 - [ ] `AliNek09/openclaw-google-trends` — thin skill repo; watch whether it develops beyond a one-off packaged data source
-- [ ] `sealofyou/hackathon-copilot` — new skill-suite + CLI bridge pattern; watch whether it becomes reusable beyond the current Feishu workflow
+- [ ] `sealofyou/hackathon-copilot` — skill-suite + CLI bridge pattern; still useful, but no fresh midday movement
+- [ ] `AlanSong2077/openclaw-plugins-data-guard` — promising privacy-at-the-edge plugin; watch for real install reports and maintainability
+- [ ] `xaspx/models-triage` — lightweight routing-skill pattern; watch whether it becomes reusable cost-control infrastructure
 
 ---
 
@@ -66,7 +68,7 @@
 
 ## Latest scan
 
-- `research/openclaw-agents/2026-04-02-midday-scan.md`
+- `research/openclaw-agents/2026-04-03-midday-scan.md`
 
 ## Archive
 
