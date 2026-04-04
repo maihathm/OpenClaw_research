@@ -4,22 +4,22 @@
 
 ---
 
-`Status: Active` · `Last scan: 2026-04-03 12:01 Asia/Saigon` · `Coverage: core + 11 tracked items`
+`Status: Active` · `Last scan: 2026-04-04 12:02 Asia/Saigon` · `Coverage: core + 11 tracked items`
 
 ## Current thesis
 
-> The strongest signal is again **upstream OpenClaw behavior change**, but the more durable secondary signal is now **small, inspectable operational components** rather than broad agent wrappers.
-> Config-surface moves, task/scheduler semantics, privacy-at-the-edge plugins, lightweight routing skills, and more operable cross-agent runtime layers matter more than generic launch noise.
+> The strongest signal is now **post-release upstream OpenClaw behavior risk**, not fresh launch volume.
+> Startup paths, plugin discovery, routing/fallback reliability, and host-exec control surfaces matter more right now than counting new repos; the best adjacent signal is still **small, inspectable interoperability patterns** like MCP-exposed shared context layers.
 
 ---
 
 ## Top 3 signals
 
-`#1` **OpenClaw `v2026.4.2` is a real operator release** — config ownership moved for `x_search` and Firecrawl-backed `web_fetch`, Task Flow was restored as a more durable substrate, and host exec defaults shifted in a more aggressive direction.
+`#1` **OpenClaw mainline is already showing startup-risk churn after `v2026.4.2`** — new upstream reports flag gateway breakage from workspace plugin discovery and a telegram config circular dependency.
 
-`#2` **Fresh upstream issues already make `v2026.4.2` worth watching carefully** — one report flags duplicate cron startup catch-up runs, another reports lost async tool results in replies.
+`#2` **Host exec control is getting more explicit** — upstream is adding an `exec.denylist` surface, which matters because exec posture has become a more consequential operator control plane.
 
-`#3` **The best ecosystem signal is now concrete packaging, not generic agent launches** — `woclaw` added a more usable CLI/dashboard layer, while `data-guard` and `models-triage` package privacy and routing as small OpenClaw-ready components.
+`#3` **The best adjacent usage signal is still interoperable tooling, not repo count** — `woclaw` now documents an MCP bridge pattern that exposes shared memory/topic state to external MCP clients with a CLI-first flow.
 
 ---
 
@@ -35,7 +35,7 @@
 - [ ] `akhilc08/mission-control` — strong pause-resume idea, but still rough
 - [ ] `z-imagine/openclaw-baidu-search` — useful fallback pattern, still early
 - [ ] `Aston1690/vercel-sandbox` — interesting hosted browser wrapper, needs stronger production evidence
-- [ ] `XingP14/woclaw` — increasingly interesting now that it has CLI/dashboard ergonomics in addition to multi-runtime packaging, but still needs stronger operator proof
+- [ ] `XingP14/woclaw` — increasingly interesting now that it has CLI/dashboard ergonomics plus a documented MCP bridge pattern, but still needs stronger operator proof
 - [ ] `AliNek09/openclaw-google-trends` — thin skill repo; watch whether it develops beyond a one-off packaged data source
 - [ ] `sealofyou/hackathon-copilot` — skill-suite + CLI bridge pattern; still useful, but no fresh midday movement
 - [ ] `AlanSong2077/openclaw-plugins-data-guard` — promising privacy-at-the-edge plugin; watch for real install reports and maintainability
@@ -68,7 +68,7 @@
 
 ## Latest scan
 
-- `research/openclaw-agents/2026-04-03-midday-scan.md`
+- `research/openclaw-agents/2026-04-04-midday-scan.md`
 
 ## Archive
 
