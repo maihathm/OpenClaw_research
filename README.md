@@ -4,22 +4,22 @@
 
 ---
 
-`Status: Active` · `Last scan: 2026-04-04 12:02 Asia/Saigon` · `Coverage: core + 11 tracked items`
+`Status: Active` · `Last scan: 2026-04-05 12:01 Asia/Saigon` · `Coverage: core + 13 tracked items`
 
 ## Current thesis
 
-> The strongest signal is now **post-release upstream OpenClaw behavior risk**, not fresh launch volume.
-> Startup paths, plugin discovery, routing/fallback reliability, and host-exec control surfaces matter more right now than counting new repos; the best adjacent signal is still **small, inspectable interoperability patterns** like MCP-exposed shared context layers.
+> The strongest signal is still **OpenClaw operator-surface churn**, but fresh ecosystem signal improved today because the new repos are narrow and inspectable rather than generic wrappers.
+> The practical edge is now split three ways: core plugin/runtime boundary fixes, targeted operational add-ons like task watchdogs, and simpler OpenClaw-shaped variants that intentionally reduce surface area.
 
 ---
 
 ## Top 3 signals
 
-`#1` **OpenClaw mainline is already showing startup-risk churn after `v2026.4.2`** — new upstream reports flag gateway breakage from workspace plugin discovery and a telegram config circular dependency.
+`#1` **Core OpenClaw is already in fast follow-up mode after `v2026.4.2`** — fresh PRs are patching bundled ACPX plugin loading and provider/plugin contract drift, which keeps reinforcing plugin/runtime boundaries as the highest-signal core surface.
 
-`#2` **Host exec control is getting more explicit** — upstream is adding an `exec.denylist` surface, which matters because exec posture has become a more consequential operator control plane.
+`#2` **A real new operational plugin pattern just appeared** — `pandemicsyn/openclaw-task-watchdog` turns detached-work failures into explicit alert events with cooldowns, escalation logic, and action routing.
 
-`#3` **The best adjacent usage signal is still interoperable tooling, not repo count** — `woclaw` now documents an MCP bridge pattern that exposes shared memory/topic state to external MCP clients with a CLI-first flow.
+`#3` **A meaningful minimalist variant launched** — `edwardlifather/SoulClaw` is an OpenClaw-inspired Telegram/Feishu gateway that keeps memory + tools + prompt-file identity, but strips the surface down aggressively.
 
 ---
 
@@ -36,6 +36,8 @@
 - [ ] `z-imagine/openclaw-baidu-search` — useful fallback pattern, still early
 - [ ] `Aston1690/vercel-sandbox` — interesting hosted browser wrapper, needs stronger production evidence
 - [ ] `XingP14/woclaw` — increasingly interesting now that it has CLI/dashboard ergonomics plus a documented MCP bridge pattern, but still needs stronger operator proof
+- [ ] `edwardlifather/SoulClaw` — meaningful minimalist OpenClaw-shaped variant; watch whether the thin-gateway + prompt-file identity model holds up under real use
+- [ ] `pandemicsyn/openclaw-task-watchdog` — strong detached-work monitoring pattern; watch for install docs, examples, and evidence beyond milestone claims
 - [ ] `AliNek09/openclaw-google-trends` — thin skill repo; watch whether it develops beyond a one-off packaged data source
 - [ ] `sealofyou/hackathon-copilot` — skill-suite + CLI bridge pattern; still useful, but no fresh midday movement
 - [ ] `AlanSong2077/openclaw-plugins-data-guard` — promising privacy-at-the-edge plugin; watch for real install reports and maintainability
@@ -68,7 +70,7 @@
 
 ## Latest scan
 
-- `research/openclaw-agents/2026-04-04-midday-scan.md`
+- `research/openclaw-agents/2026-04-05-midday-scan.md`
 
 ## Archive
 
